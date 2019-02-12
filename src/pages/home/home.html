@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title *ngIf="sayfa; else menuBaslik">{{sayfa.title}}</ion-title>
+    <ng-template #menuBaslik>
+      <ion-title>Ana Sayfa</ion-title>
+    </ng-template>
+  </ion-navbar>
+</ion-header>
+
+<!--<ion-content padding>-->
+  <!--<h3>MUSKİ PDKS </h3>-->
+  <!--<ion-item>-->
+    <!--<ion-label color="primary" fixed>Kullanıcı Adı </ion-label>-->
+    <!--<ion-input  placeholder=""  [(ngModel)]="username"></ion-input>-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+    <!--<ion-label color="primary" fixed>Şifre </ion-label>-->
+    <!--<ion-input type="password" placeholder="" [(ngModel)]="password" required></ion-input>-->
+  <!--</ion-item>-->
+
+  <!--<button ion-button full (click)="postData()">Giriş</button>-->
+  <!--<button ion-button full color="light" (click)="showConfirm()">Çıkış</button>-->
+
+
+
+<!--</ion-content>-->
+
+
+
+<ion-content padding class="has-header has-footer padding full-height text-center">
+  <form novalidate [formGroup]="group">
+    <ion-list >
+      <ion-item>
+        <ion-label floating>Kullanıcı Adı</ion-label>
+        <ion-input type="text" formControlName="username" [(ngModel)]="username"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines *ngIf="(group.get('username').hasError('required') || group.get('username').hasError('nullValidator') ) && group.get('username').touched">
+        <div class="error"   *ngIf="group.get('username').hasError('required') && group.get('username').touched">
+            <h6 style="color:red;">Kullanıcı Adını giriniz</h6>
+        </div>
+        <div class="error" *ngIf="group.get('username').hasError('nullValidator') && group.get('username').touched">
+            <h6 style="color:red;">Kullanıcı Adını giriniz</h6>
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Parola</ion-label>
+        <ion-input type="password" formControlName="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="(group.get('password').hasError('required') || group.get('password').hasError('minlength') ) && group.get('password').touched">
+        <div class="error" *ngIf="group.get('password').hasError('required') && group.get('password').touched">
+            <h6 style="color:red;">Parolayı Giriniz</h6>
+        </div>
+        <div class="error" *ngIf="group.get('password').hasError('minlength') && group.get('password').touched">
+            <h6 style="color:red;">Parola Maksimum 5 karakter olmalı</h6>
+        </div>
+      </ion-item>
+
+
+    </ion-list>
+
+
+    <button ion-button full  (click)="postData()">Giriş</button>
+    <button ion-button full color="light" (click)=" btnPushClicked()">Çıkış</button>
+    <!--<button ion-button class="submit-button" [disabled]="group.invalid">Submit</button>-->
+
+
+
+
+
+  </form>
+</ion-content>
+
+
